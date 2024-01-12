@@ -1,0 +1,189 @@
+Certainly! Let's break down the code into sections and explain each part in detail:
+1. Import Statements
+
+python
+
+import PySimpleGUI as sg
+from string import ascii_uppercase
+from random import choice
+
+    The import statements bring in necessary modules:
+        PySimpleGUI: A Python GUI framework used for building the graphical user interface.
+        ascii_uppercase: A string containing all uppercase letters of the alphabet.
+        choice: A function from the random module used to make a random selection from a sequence.
+
+2. Constants
+
+python
+
+MAX_WRONG_GUESSES = 6
+
+    This sets a constant MAX_WRONG_GUESSES to limit the number of incorrect guesses allowed in the Hangman game.
+
+3. Hangman Class
+
+python
+
+class Hangman:
+    def __init__(self):
+        # Initialization of instance variables
+        self.quit = False
+        self._window = None  # PySimpleGUI window object
+        self._played_games = 0
+        self._won_games = 0
+        self._initialize_game()
+
+    This defines a class named Hangman to encapsulate the Hangman game.
+    The __init__ method initializes instance variables, including flags for game state, a PySimpleGUI window object, and counters for played and won games. It also calls _initialize_game to set up the initial game state.
+
+4. Window Event Handling Methods
+
+python
+
+    def read_event(self):
+        event = self._window.read()
+        event_id = event[0] if event is not None else None
+        return event_id
+
+    def close(self):
+        self._window.close()
+
+    read_event: Reads events from the PySimpleGUI window and extracts the event ID.
+    close: Closes the PySimpleGUI window.
+
+5. GUI Building Methods
+
+python
+
+    def _build_canvas_frame(self):
+        # ... (explained below)
+
+    def _build_letters_frame(self):
+        # ... (explained below)
+
+    def _build_guessed_word_frame(self):
+        # ... (explained below)
+
+    def _build_action_buttons_frame(self):
+        # ... (explained below)
+
+    These methods create different components of the GUI:
+        _build_canvas_frame: Frame containing a graphical canvas for drawing the Hangman figure.
+        _build_letters_frame: Frame with buttons for each letter of the alphabet.
+        _build_guessed_word_frame: Frame displaying the guessed word.
+        _build_action_buttons_frame: Frame with buttons for actions like starting a new game or quitting.
+
+6. Drawing Hangman Methods
+
+python
+
+    def _draw_scaffold(self):
+        # ... (explained below)
+
+    def _draw_hanged_man(self):
+        # ... (explained below)
+
+    _draw_scaffold: Draws the scaffold (structure for hanging the man) on the canvas.
+    _draw_hanged_man: Draws the Hangman figure based on the number of wrong guesses.
+
+7. Word Selection and Word Building Methods
+
+python
+
+    def _select_word(self):
+        # ... (explained below)
+
+    def _build_guessed_word(self):
+        # ... (explained below)
+
+    _select_word: Reads a list of words from a file and selects a random word for the game.
+    _build_guessed_word: Builds the current guessed word, replacing unknown letters with underscores.
+
+8. Initialization Methods
+
+python
+
+    def _initialize_game(self):
+        # ... (explained below)
+
+    def _initialize_gui(self):
+        # ... (explained below)
+
+    _initialize_game: Sets up the initial game state, including selecting a new word and initializing guessed letters and wrong guesses.
+    _initialize_gui: Creates the initial GUI layout and window.
+
+9. Gameplay Methods
+
+python
+
+    def _play(self, letter):
+        # ... (explained below)
+
+    def process_event(self, event):
+        # ... (explained below)
+
+    _play: Handles player input, updating guessed letters, wrong guesses, and the displayed word.
+    process_event: Processes events, such as button clicks or key presses, to initiate gameplay actions.
+
+10. Game State Check and Winner Popup
+
+python
+
+    def is_over(self):
+        # ... (explained below)
+
+    def check_winner(self):
+        # ... (explained below)
+
+    is_over: Checks if the game is over based on conditions such as reaching the maximum wrong guesses or guessing the entire word.
+    check_winner: Displays a popup message declaring the winner and asking if the player wants to play another round.
+
+11. Main Execution
+
+python
+
+if __name__ == "__main__":
+    # ... (explained below)
+
+    This block executes when the script is run directly.
+    Creates an instance of the Hangman class, and then enters a loop for rounds and an event loop for gameplay.
+    Checks for game termination conditions and updates the GUI accordingly.
+
+This Hangman game uses PySimpleGUI for the graphical interface, allows the player to input guesses through button clicks, and displays the Hangman figure on incorrect guesses. The game continues until the player decides to quit or play another round. The core logic is organized into methods for better readability and maintainability.
+
+
+In Python, the self parameter is used to reference the instance of the class within its methods. It is a convention in Python to name the first parameter of a method in a class as self, though you can technically name it anything you want. The name self is just a convention that helps make code more readable and maintainable.
+
+Here's why self is used:
+
+    Instance Specifics: Inside a class, when you define a method, you're working with an instance of that class. self refers to the instance itself. This allows you to access and modify attributes (variables) and call other methods of the instance.
+
+    Attribute Access: When you want to access an attribute (a variable) of an instance within a method, you use self to indicate that you're referring to the instance's attribute.
+
+    Method Invocation: When you call a method on an instance, self allows you to call other methods of the same instance.
+
+Here's a simple example to illustrate this:
+
+python
+
+class MyClass:
+    def __init__(self, value):
+        self.value = value
+
+    def print_value(self):
+        print(self.value)
+
+    def update_value(self, new_value):
+        self.value = new_value
+
+# Creating an instance of MyClass
+obj = MyClass(42)
+
+# Calling methods on the instance
+obj.print_value()  # Prints 42
+obj.update_value(99)
+obj.print_value()  # Prints 99
+
+In this example, self is used to refer to the instance (obj) itself. When you call obj.print_value(), it's equivalent to calling MyClass.print_value(obj). The self parameter is implicitly passed by Python when you call a method on an instance.
+
+In the context of your Hangman game, self is extensively used to refer to the instance of the Hangman class. It allows the methods to access and modify instance-specific attributes like _target_word, _guessed_letters, _wrong_guesses, etc.
